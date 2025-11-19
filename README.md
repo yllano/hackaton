@@ -36,3 +36,4 @@ Instala todas las librerías necesarias con el siguiente comando:
 pip install pandas numpy jupyter
 pip install statsmodels
 pip install xgboost scikit-learn
+pip install seaborn matplotlib
