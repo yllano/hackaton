@@ -1,73 +1,39 @@
-# React + TypeScript + Vite
+#  Proyecto: Motor de Precios Dinámicos para E-commerce LATAM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto desarrolla un sistema prescriptivo de **Dynamic Pricing** (Precios Dinámicos) para una plataforma de E-commerce internacional, resolviendo el problema de la optimización manual de precios y promociones en mercados volátiles de Latinoamérica.
 
-Currently, two official plugins are available:
+## Objetivo de la Fase 1: Ingeniería y Preparación de Datos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+El objetivo principal de esta fase es limpiar, transformar y re-contextualizar el dataset base (`Online Retail.csv`) para crear la **Tabla Maestra** (`master_df.csv`) que será utilizada en la fase de modelado de Elasticidad y Demand Forecasting.
 
-## React Compiler
+## Configuración del Entorno de Desarrollo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Es fundamental utilizar un **Entorno Virtual** (`venv`) para aislar las dependencias del proyecto y asegurar la **Claridad Técnica** (Criterio 1).
 
-## Expanding the ESLint configuration
+### 1. Creación y Activación del Entorno Virtual
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1.  **Crear el entorno virtual:** (Abrir la terminal en VS Code en la carpeta raíz)
+    ```bash
+    python -m venv venv
+    ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2.  **Activar el entorno virtual:**
+    * **Windows (PowerShell):**
+        ```bash
+        .\venv\Scripts\Activate
+        ```
+    * **macOS / Linux:**
+        ```bash
+        source venv/bin/activate
+        ```
+*(Verás `(venv)` al inicio de la línea de comandos, indicando que estás dentro del entorno.)*
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. Instalación de Dependencias
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Instala todas las librerías necesarias con el siguiente comando:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```bash
+pip install pandas numpy jupyter
+pip install statsmodels
+pip install xgboost scikit-learn
+pip install seaborn matplotlib

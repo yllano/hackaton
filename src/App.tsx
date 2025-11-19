@@ -3,43 +3,59 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 import { HomeDashboard } from './components/HomeDashboard';
-
-// I'll move the old icon components to the new icons folder structure for consistency
-import { SunIcon } from './components/icons/SunIcon';
-import { MoonIcon } from './components/icons/MoonIcon';
-
+import { ProductDetailView } from './components/ProductDetailView';
 
 type Theme = 'light' | 'dark';
+type View = 'home' | 'products' | 'simulator' | 'settings';
+
+// A simple placeholder for views that are not yet created
+const PlaceholderView: React.FC<{ viewName: string }> = ({ viewName }) => (
+  <div style={{ padding: '2rem', fontSize: '1.5rem', color: 'var(--text-secondary)'}}>
+    Vista para <strong>{viewName}</strong> no implementada todavía.
+  </div>
+);
+
 
 function App() {
   const [theme, setTheme] = useState<Theme>('light');
+  const [currentView, setCurrentView] = useState<View>('home');
 
-  useEffect(() => {
-    const body = window.document.body;
-    body.classList.remove(theme === 'light' ? 'dark' : 'light');
-    body.classList.add(theme);
+useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove(theme === 'light' ? 'dark' : 'light');
+    root.classList.add(theme);
   }, [theme]);
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
+  const renderView = () => {
+    switch (currentView) {
+      case 'home':
+        return <HomeDashboard />;
+      case 'products':
+        return <ProductDetailView />;
+      case 'simulator':
+        return <PlaceholderView viewName="Simulador" />;
+      case 'settings':
+        return <PlaceholderView viewName="Configuración" />;
+      default:
+        return <HomeDashboard />;
+    }
+  }
+
   return (
     <div className="app-wrapper">
-      <Sidebar />
+      <Sidebar currentView={currentView} onNavigate={setCurrentView} />
       <div className="main-content">
         <Header onToggleTheme={toggleTheme} />
         <main>
-          <HomeDashboard />
+          {renderView()}
         </main>
       </div>
     </div>
   );
 }
-
-// Since I've moved the Sun and Moon icons, I need to recreate them in the new location
-// and update the ThemeSwitcher to point to the new location.
-// I will do that in the next steps. For now, this will cause an error.
-// I will first create the new icon files.
 
 export default App;
